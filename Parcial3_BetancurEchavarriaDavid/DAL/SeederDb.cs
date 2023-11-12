@@ -17,9 +17,11 @@ namespace Concert.DAL
 
         public async Task SeedAsync()
         {
+            SeederDb _seederDb= new SeederDb(_context);
+            await _seederDb.SeedAsync();
             await _context.Database.EnsureCreatedAsync();
             await PopulateTicketsAsync();
-            await _context.SaveChangesAsync();
+            
         }
 
         private async Task PopulateTicketsAsync()

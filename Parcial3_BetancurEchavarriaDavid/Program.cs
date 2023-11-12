@@ -23,6 +23,7 @@ void SeederData()
     {
         SeederDb? service = scope.ServiceProvider.GetService<SeederDb>();
         service.SeedAsync().Wait();
+
     }
 }
 
