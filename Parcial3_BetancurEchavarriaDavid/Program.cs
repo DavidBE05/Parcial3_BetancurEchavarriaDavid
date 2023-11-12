@@ -1,3 +1,4 @@
+using Concert.DAL;
 using Microsoft.EntityFrameworkCore;
 using Parcial3_BetancurEchavarriaDavid.DAL;
 
@@ -10,6 +11,21 @@ builder.Services.AddDbContext<DataBaseContext>(o => o.UseSqlServer(builder.Confi
 
 
 var app = builder.Build();
+
+app.UseRequestLocalization();
+
+SeederData();
+void SeederData()
+{
+    IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (IServiceScope? scope = scopedFactory.CreateScope())
+    {
+        SeederDb? service = scope.ServiceProvider.GetService<SeederDb>();
+        service.SeedAsync().Wait();
+    }
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
